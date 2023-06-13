@@ -11,7 +11,7 @@ public class SlotButton : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        count_number = 0;
+        count_number = 0; //rrrr
         spriteRenderer.sprite = sprites[0];
     }
 

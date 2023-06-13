@@ -23,5 +23,6 @@ public class Slot : MonoBehaviour
             Debug.Log("Unlock!");
         }
 
+        // test
     }
 }

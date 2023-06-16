@@ -50,7 +50,7 @@ public class BoardCanvas : MonoBehaviour
         text_arr[3].text = "车一平二   <color=#000000>马</color>2进3";
         text_arr[3].alpha = 0;
 
-        gameObject.SetActive(true);//初始状态，画布不显示
+        gameObject.SetActive(false);//初始状态，画布不显示
 
         plots.text = plot_text_arr[0].text;
         plots.color = Color.black;

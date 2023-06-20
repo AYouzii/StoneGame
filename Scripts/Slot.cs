@@ -4,25 +4,35 @@ using UnityEngine;
 
 public class Slot : MonoBehaviour
 {
-    public SlotButton[] buttons;
-    private bool unlock;
+    public GameObject[] numbers = new GameObject[9];
+    public int obj_index = 0;
+    public GameObject obj;
+
     // Start is called before the first frame update
     void Start()
     {
-        unlock = false;
+        obj = GameObject.Instantiate(numbers[obj_index]);
+        obj.transform.parent = gameObject.transform;
+        obj.transform.localPosition = new Vector3(0,0.1f,0);
+        obj.transform.localScale = Vector3.one;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (buttons[0].count_number == 2) {
-            unlock = true;
-        }
+        
+    }
 
-        if (unlock) {
-            Debug.Log("Unlock!");
+    public void Increment()
+    {
+        GameObject.Destroy(obj);
+        obj_index++;
+        if (obj_index > 8) {
+            obj_index = 0;
         }
-
-        // test
+        obj = GameObject.Instantiate(numbers[obj_index]);
+        obj.transform.parent = gameObject.transform;
+        obj.transform.localPosition = new Vector3(0,0.1f,0);
+        obj.transform.localScale = Vector3.one;
     }
 }

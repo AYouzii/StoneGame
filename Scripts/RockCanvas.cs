@@ -22,11 +22,14 @@ public class RockCanvas: MonoBehaviour
     public Image background;
     private int[] back_index_arr = {0, 0, 0, 1, 0, 1, 1, 0, 1, 1, 0};
 
+    public Image end_black;//终幕黑色背景
+    public TMP_Text end_plots;//终幕文字
+    public Button end_button;//终幕结束按钮
+
     // Start is called before the first frame update
     void Start()
     {
         time_count = 0;
-        // chars_per_second = Mathf.Max(0.2f, chars_per_second);
 
         plots_arr[0] = "……";
         plots_arr[1] = "吾，即尔所求之棋士也。";
@@ -49,6 +52,12 @@ public class RockCanvas: MonoBehaviour
         isActive = true;
         next_button.onClick.AddListener(NextPage);
         cross_button.onClick.AddListener(CrossButtonClick);
+
+        end_black.gameObject.SetActive(false);
+        end_plots.gameObject.SetActive(false);
+        end_button.gameObject.SetActive(false);
+
+        end_button.onClick.AddListener(EndGame);
     }
 
     // Update is called once per frame
@@ -78,8 +87,11 @@ public class RockCanvas: MonoBehaviour
     {
         plots_arr_index++;
         if (plots_arr_index > PLOTS_NUM - 1) {
-            plots_arr_index = 0;
-            Close();
+            end_black.gameObject.SetActive(true);
+            end_button.gameObject.SetActive(true);
+            end_plots.gameObject.SetActive(true);
+            next_button.gameObject.SetActive(false);//关闭翻页按钮，避免冲突
+            
         }
         else {
             plots_text.text = plots_arr[plots_arr_index];
@@ -104,5 +116,10 @@ public class RockCanvas: MonoBehaviour
     private void CrossButtonClick()
     {
         gameObject.SetActive(false);
+    }
+
+    private void EndGame()
+    {
+        Application.Quit();
     }
 }

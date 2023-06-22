@@ -30,8 +30,8 @@ public class Opening : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //初始化文本及画布元素
         time_count = 0;
-        // chars_per_second = Mathf.Max(0.2f, chars_per_second);
         plots_arr[0] = "我乃民间一作家，专记各地奇闻轶事。\n";
         plots_arr[1] = "象棋名手李仲隐晚年自传中提到，其年少时常与棋友访天虞山一石姓棋士。\n";
         plots_arr[2] = "“彼之天资卓颖，气质举止，非凡人之矣。吾年老之际闻邻县又出一天才少年，一招一式竟与吾所识石兄异曲同工。亦或石兄诚为仙人所在，言之未可知也。”\n";
@@ -75,6 +75,8 @@ public class Opening : MonoBehaviour
         InfoText1.gameObject.SetActive(false);
         InfoText2.gameObject.SetActive(false);
 
+
+        //开场剧情结束前，未正式进入游戏，玩家不显示
         player.gameObject.SetActive(false);
         
     }
@@ -109,7 +111,7 @@ public class Opening : MonoBehaviour
         if (plots_arr_index > PLOTS_NUM - 1) {
             plots_arr_index = 0;
             isActive = false;
-            //文本显示完成
+            //文本显示完成,打开游戏主界面，显示各按钮
             plots_text.gameObject.SetActive(false);
             next_button.gameObject.SetActive(false);
             game_start.gameObject.SetActive(true);
@@ -142,6 +144,7 @@ public class Opening : MonoBehaviour
 
     private void ShowGameInfo()
     {
+        //显示游戏信息
         InfoBackground.gameObject.SetActive(true);
         InfoText1.gameObject.SetActive(true);
         InfoText2.gameObject.SetActive(true);
@@ -150,6 +153,7 @@ public class Opening : MonoBehaviour
 
     private void ReturnToTitle()
     {
+        //从信息页面返回主界面
         InfoBackground.gameObject.SetActive(false);
         InfoText1.gameObject.SetActive(false);
         InfoText2.gameObject.SetActive(false);

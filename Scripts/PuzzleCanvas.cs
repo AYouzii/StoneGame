@@ -14,11 +14,13 @@ public class PuzzleCanvas : MonoBehaviour
     public Hand hand;// 玩家的手持物
     private Dictionary<string, int> Name_Index_Dic = new Dictionary<string, int>();//拼图名称与图片索引的字典
     private bool unlocked = false;//谜题成功解开的标志
-    private bool isGiven = false;//是否已经给予玩家道具
+
+    public PuzzlePlots plots;
 
     // Start is called before the first frame update
     void Start()
     {
+        //为按钮添加事件函数
         buttons[0].onClick.AddListener(ButtonClick1);
         buttons[1].onClick.AddListener(ButtonClick2);
         buttons[2].onClick.AddListener(ButtonClick3);
@@ -28,6 +30,7 @@ public class PuzzleCanvas : MonoBehaviour
 
         cross_button.onClick.AddListener(CrossButtonClick);
 
+        //将六块拼图名称与索引加入字典
         Name_Index_Dic.Add("puzzle1", 0);
         Name_Index_Dic.Add("puzzle2", 1);
         Name_Index_Dic.Add("puzzle3", 2);
@@ -120,7 +123,13 @@ public class PuzzleCanvas : MonoBehaviour
     private void CheckPuzzles()
     {
         //检查谜题是否成功解开
-        bool isComplete = true;
+
+        if (unlocked) {
+            return;//若谜题已经解开，则直接返回
+        }
+
+        bool isComplete = true;//完成标志
+        //遍历检查每一块拼图是否处于正确的位置
         for (int i = 0; i < BUTTON_NUM; i++) {
             if (button_image_index_arr[i] != i) {
                 isComplete = false;
@@ -130,12 +139,8 @@ public class PuzzleCanvas : MonoBehaviour
 
         if (isComplete) {
             unlocked = true;
-            if (! isGiven) {
-                GiveObject();
-                isGiven = true;
-                gameObject.SetActive(false);//隐藏画布
-
-            }
+            gameObject.SetActive(false);//隐藏画布
+            plots.Open();
         }
     }
 
@@ -148,11 +153,7 @@ public class PuzzleCanvas : MonoBehaviour
     public void Close()
     {
         gameObject.SetActive(false);
-        GameObject.Find("Player").GetComponent<Player>().movable = true;
+        GameObject.Find("Player").GetComponent<Player>().movable = true;//关闭画布时设置玩家可以移动
     }
 
-  public void GiveObject()
-    {
-        //给予玩家物品
-    }
 }

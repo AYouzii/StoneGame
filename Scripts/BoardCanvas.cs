@@ -21,6 +21,7 @@ public class BoardCanvas : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //初始化画布元素
 		image.sprite = sprites[0];
        
         right_button.onClick.AddListener(RightButtonClick);

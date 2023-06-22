@@ -22,6 +22,8 @@ public class PuzzlePlots : MonoBehaviour
     public Image background;
     private int[] back_index_arr = {0, 1, 0, 0, 0, 0, 1};
 
+    public Rock rock;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +46,8 @@ public class PuzzlePlots : MonoBehaviour
         isActive = true;
         next_button.onClick.AddListener(NextPage);
         cross_button.onClick.AddListener(CrossButtonClick);
+
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -73,10 +77,9 @@ public class PuzzlePlots : MonoBehaviour
     {
         plots_arr_index++;
         if (plots_arr_index > PLOTS_NUM - 1) {
-            plots_arr_index = 0;
-            GameObject.Find("rock").gameObject.SetActive(true);
-            Close();
-
+            plots_arr_index = PLOTS_NUM - 1;
+            rock.gameObject.SetActive(true);
+            gameObject.SetActive(false);
         }
         else {
             plots_text.text = plots_arr[plots_arr_index];
